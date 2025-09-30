@@ -30,7 +30,8 @@ jobs:
                 "parts": [{
                   "text": "Based on the following GitHub issue, please generate the full, corrected content for the docker-compose.yml file. Only output the raw YAML code and nothing else.\n\nIssue Title: ${{ github.event.issue.title }}\n\nIssue Body: ${{ github.event.issue.body }}"
                 }],
-                "safetySettings": [
+              }],
+              "safetySettings": [
                   {
                     "category": "HARM_CATEGORY_HARASSMENT",
                     "threshold": "BLOCK_ONLY_HIGH"
@@ -40,7 +41,6 @@ jobs:
                     "threshold": "BLOCK_ONLY_HIGH"
                   }
                 ]
-              }]
             }' \
             "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${{ secrets.GEMINI_API_KEY }}")
 
