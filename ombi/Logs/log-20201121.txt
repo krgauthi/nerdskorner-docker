@@ -1,0 +1,203 @@
+2020-11-21 00:00:00.000 +00:00 [Debug] Batch acquisition of 1 triggers
+2020-11-21 00:00:00.000 +00:00 [Debug] Calling Execute on job Emby.IEmbyUserImporter
+2020-11-21 00:00:00.002 +00:00 [Debug] Batch acquisition of 1 triggers
+2020-11-21 00:00:00.002 +00:00 [Debug] Calling Execute on job Plex.IPlexContentSyncRecentlyAdded
+2020-11-21 00:00:00.008 +00:00 [Debug] Calling Execute on job Plex.IPlexUserImporter
+2020-11-21 00:00:00.008 +00:00 [Debug] Batch acquisition of 1 triggers
+2020-11-21 00:00:00.009 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:00:00.009 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:00:00.009 +00:00 [Information] Starting Plex Content Cacher Recently Added Scan
+2020-11-21 00:00:00.010 +00:00 [Information] Starting to cache the content on server "Server 1"
+2020-11-21 00:00:00.010 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:00:00.010 +00:00 [Debug] Calling Execute on job System.IIssuesPurge
+2020-11-21 00:00:00.012 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:00:03.017 +00:00 [Warning] Exception thrown when attempting to cache the Plex Content in server "Server 1"
+System.Net.Http.HttpRequestException: No route to host ---> System.Net.Sockets.SocketException: No route to host
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at Ombi.Api.OmbiHttpClient.SendAsync(HttpRequestMessage request) in C:\projects\requestplex\src\Ombi.Api\OmbiHttpClient.cs:line 61
+   at Ombi.Api.Api.Request[T](Request request) in C:\projects\requestplex\src\Ombi.Api\Api.cs:line 38
+   at Ombi.Api.Plex.PlexApi.GetLibrarySections(String authToken, String plexFullHost) in C:\projects\requestplex\src\Ombi.Api.Plex\PlexApi.cs:line 120
+   at Ombi.Schedule.Jobs.Plex.PlexContentSync.GetAllContent(PlexServers plexSettings, Boolean recentlyAddedSearch) in C:\projects\requestplex\src\Ombi.Schedule\Jobs\Plex\PlexContentSync.cs:line 577
+   at Ombi.Schedule.Jobs.Plex.PlexContentSync.ProcessServer(PlexServers servers, Boolean recentlyAddedSearch) in C:\projects\requestplex\src\Ombi.Schedule\Jobs\Plex\PlexContentSync.cs:line 152
+   at Ombi.Schedule.Jobs.Plex.PlexContentSync.StartTheCache(PlexSettings plexSettings, Boolean recentlyAddedSearch) in C:\projects\requestplex\src\Ombi.Schedule\Jobs\Plex\PlexContentSync.cs:line 130
+2020-11-21 00:00:03.019 +00:00 [Information] Finished Plex Content Cacher, with processed content: 0, episodes: 0. Recently Added Scan: True
+2020-11-21 00:00:03.019 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:00:29.850 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:00:58.387 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:01:21.453 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:01:48.259 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:02:18.119 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:02:45.212 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:03:15.070 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:03:39.256 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:04:08.748 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:04:36.541 +00:00 [Debug] Batch acquisition of 1 triggers
+2020-11-21 00:05:00.000 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:05:00.000 +00:00 [Debug] Calling Execute on job Emby.IEmbyContentSync
+2020-11-21 00:05:00.001 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:05:28.529 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:05:57.545 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:06:26.051 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:06:52.455 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:07:22.349 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:07:51.290 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:08:17.145 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:08:43.888 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:09:07.852 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:09:36.696 +00:00 [Debug] Batch acquisition of 1 triggers
+2020-11-21 00:10:00.000 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:10:00.000 +00:00 [Debug] Calling Execute on job DVR.ISonarrSync
+2020-11-21 00:10:00.002 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:10:27.773 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:10:57.129 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:11:26.207 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:11:56.151 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:12:20.707 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:12:48.061 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:13:12.683 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:13:41.141 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:14:09.979 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:14:36.200 +00:00 [Debug] Batch acquisition of 1 triggers
+2020-11-21 00:15:00.000 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:15:00.001 +00:00 [Debug] Calling Execute on job DVR.IRadarrSync
+2020-11-21 00:15:00.002 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:15:28.149 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:15:55.508 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:16:21.413 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:16:45.738 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:17:08.742 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:17:35.689 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:18:05.504 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:18:29.571 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:18:56.658 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:19:20.668 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:19:48.788 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:20:17.090 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:20:40.985 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:21:05.820 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:21:35.085 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:22:03.301 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:22:30.908 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:22:58.421 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:23:23.603 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:23:48.512 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:24:13.045 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:24:37.180 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:25:07.031 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:25:32.867 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:26:02.829 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:26:28.793 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:26:56.571 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:27:21.167 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:27:50.049 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:28:13.052 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:28:42.818 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:29:07.352 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:29:33.494 +00:00 [Debug] Batch acquisition of 1 triggers
+2020-11-21 00:30:00.000 +00:00 [Debug] Batch acquisition of 1 triggers
+2020-11-21 00:30:00.001 +00:00 [Debug] Calling Execute on job DVR.ICouchPotatoSync
+2020-11-21 00:30:00.001 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:30:00.001 +00:00 [Debug] Calling Execute on job Plex.IPlexContentSyncRecentlyAdded
+2020-11-21 00:30:00.004 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:30:00.004 +00:00 [Information] Starting Plex Content Cacher Recently Added Scan
+2020-11-21 00:30:00.004 +00:00 [Information] Starting to cache the content on server "Server 1"
+2020-11-21 00:30:03.014 +00:00 [Warning] Exception thrown when attempting to cache the Plex Content in server "Server 1"
+System.Net.Http.HttpRequestException: No route to host ---> System.Net.Sockets.SocketException: No route to host
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(String host, Int32 port, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.CreateConnectionAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.WaitForCreatedConnectionAsync(ValueTask`1 creationTask)
+   at System.Threading.Tasks.ValueTask`1.get_Result()
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.FinishSendAsyncBuffered(Task`1 sendTask, HttpRequestMessage request, CancellationTokenSource cts, Boolean disposeCts)
+   at Ombi.Api.OmbiHttpClient.SendAsync(HttpRequestMessage request) in C:\projects\requestplex\src\Ombi.Api\OmbiHttpClient.cs:line 61
+   at Ombi.Api.Api.Request[T](Request request) in C:\projects\requestplex\src\Ombi.Api\Api.cs:line 38
+   at Ombi.Api.Plex.PlexApi.GetLibrarySections(String authToken, String plexFullHost) in C:\projects\requestplex\src\Ombi.Api.Plex\PlexApi.cs:line 120
+   at Ombi.Schedule.Jobs.Plex.PlexContentSync.GetAllContent(PlexServers plexSettings, Boolean recentlyAddedSearch) in C:\projects\requestplex\src\Ombi.Schedule\Jobs\Plex\PlexContentSync.cs:line 577
+   at Ombi.Schedule.Jobs.Plex.PlexContentSync.ProcessServer(PlexServers servers, Boolean recentlyAddedSearch) in C:\projects\requestplex\src\Ombi.Schedule\Jobs\Plex\PlexContentSync.cs:line 152
+   at Ombi.Schedule.Jobs.Plex.PlexContentSync.StartTheCache(PlexSettings plexSettings, Boolean recentlyAddedSearch) in C:\projects\requestplex\src\Ombi.Schedule\Jobs\Plex\PlexContentSync.cs:line 130
+2020-11-21 00:30:03.017 +00:00 [Information] Finished Plex Content Cacher, with processed content: 0, episodes: 0. Recently Added Scan: True
+2020-11-21 00:30:03.017 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:30:23.513 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:30:46.744 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:31:15.089 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:31:39.618 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:32:05.536 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:32:30.852 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:32:57.215 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:33:26.561 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:33:50.328 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:34:17.715 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:34:41.332 +00:00 [Debug] Batch acquisition of 1 triggers
+2020-11-21 00:35:00.000 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:35:00.001 +00:00 [Debug] Calling Execute on job DVR.ISickRageSync
+2020-11-21 00:35:00.002 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:35:24.317 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:35:51.247 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:36:14.809 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:36:41.293 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:37:05.180 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:37:33.861 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:38:00.155 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:38:24.429 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:38:50.734 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:39:14.937 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:39:42.140 +00:00 [Debug] Batch acquisition of 1 triggers
+2020-11-21 00:40:00.001 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:40:00.001 +00:00 [Debug] Calling Execute on job DVR.ILidarrArtistSync
+2020-11-21 00:40:00.001 +00:00 [Debug] Trigger instruction : NoInstruction
+2020-11-21 00:40:24.106 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:40:53.452 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:41:23.393 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:41:47.629 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:42:12.363 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:42:36.219 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:43:03.040 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:43:27.651 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:43:57.196 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:44:23.684 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:44:51.365 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:45:15.165 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:45:43.699 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:46:10.099 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:46:38.614 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:47:07.442 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:47:37.392 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:48:05.004 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:48:30.317 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:48:59.150 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:49:22.163 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:49:45.859 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:50:14.221 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:50:38.675 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:51:07.192 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:51:31.145 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:51:59.867 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:52:25.893 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:52:51.476 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:53:19.676 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:53:43.982 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:54:10.803 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:54:36.220 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:55:01.046 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:55:26.320 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:55:52.851 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:56:17.026 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:56:40.339 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:57:05.813 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:57:29.922 +00:00 [Debug] Batch acquisition of 0 triggers
+2020-11-21 00:57:58.318 +00:00 [Debug] Batch acquisition of 0 triggers
