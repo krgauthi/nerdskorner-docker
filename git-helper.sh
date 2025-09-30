@@ -52,10 +52,36 @@ case "$1" in
         echo "Run ./push-to-github.sh for detailed instructions."
         $DOCKER_GIT push -u origin master
         ;;
-    "pull")
-        echo "Pulling from GitHub..."
-        $DOCKER_GIT pull origin master
-        ;;
+           "pull")
+               echo "Pulling from GitHub..."
+               $DOCKER_GIT pull origin master
+               ;;
+           "fetch")
+               echo "Fetching latest changes from GitHub..."
+               $DOCKER_GIT fetch origin
+               ;;
+           "merge")
+               if [ -z "$2" ]; then
+                   echo "Please provide a branch to merge"
+                   echo "Usage: ./git-helper.sh merge <branch-name>"
+                   exit 1
+               fi
+               echo "Merging branch: $2"
+               $DOCKER_GIT merge origin/"$2"
+               ;;
+           "checkout")
+               if [ -z "$2" ]; then
+                   echo "Please provide a branch name"
+                   echo "Usage: ./git-helper.sh checkout <branch-name>"
+                   exit 1
+               fi
+               echo "Checking out branch: $2"
+               $DOCKER_GIT checkout "$2"
+               ;;
+           "branches")
+               echo "Available branches:"
+               $DOCKER_GIT branch -a
+               ;;
     *)
         echo "Git Helper for Synology NAS Docker Configurations"
         echo ""
@@ -68,6 +94,10 @@ case "$1" in
         echo "  save 'message'           - Add all changes and commit"
         echo "  push                     - Push to GitHub (requires auth setup)"
         echo "  pull                     - Pull from GitHub"
+        echo "  fetch                     - Fetch latest changes from GitHub"
+        echo "  merge [branch]           - Merge a branch into current branch"
+        echo "  checkout [branch]        - Switch to a different branch"
+        echo "  branches                 - List all available branches"
         echo "  log                      - Show recent commits"
         echo "  diff                     - Show changes"
         echo ""
