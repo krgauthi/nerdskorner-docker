@@ -1,0 +1,363 @@
+# Build with sudo docker-compose up -d
+version: "3.3"
+services:
+        # =============================
+        #  PIA (Private Internet Access)
+        #  https://hub.docker.com/r/itsdaspecialk/pia-openvpn
+        #  VPN container for secure traffic routing
+        # =============================
+        pia-openvpn:
+                container_name: "PIA"
+                restart: always
+                dns:
+                        - 209.222.18.222
+                        - 209.222.18.218
+                        - 209.222.18.220
+                cap_add:
+                        - NET_ADMIN
+                environment:
+                        - USERNAME=${PIA_USER}
+                        - PASSWORD=${PIA_PASS}
+                image: itsdaspecialk/pia-openvpn:centos7
+                ports:
+                        - 51413:51413
+                        - 51413:51413/udp
+                networks:
+                        pia_network:
+                                ipv4_address: 192.168.170.6
+        # =============================
+        #  Portainer
+        #  https://hub.docker.com/r/portainer/portainer
+        #  Web UI for managing Docker environments
+        # =============================
+        portainer:
+                image: portainer/portainer:latest
+                container_name: "Portainer"
+                restart: always
+                volumes:
+                        - /var/run/docker.sock:/var/run/docker.sock
+                        - portainer_data:/data
+                ports:
+                        - "9000:9000"
+                networks:
+                        - ssl_secure_network
+        # =============================
+        #  Transmission
+        #  https://hub.docker.com/r/linuxserver/transmission
+        #  BitTorrent client with Web UI, routed through VPN
+        # =============================
+        transmission:
+                image: linuxserver/transmission:latest
+                container_name: "Transmission"
+                network_mode: "service:pia-openvpn"
+                environment:
+                        - VIRTUAL_HOST=transmission.local
+                        - PUID=${PUID}
+                        - PGID=${PGID}
+                        - TZ=${TZ}
+                        - USER=${GLOBAL_USER}
+                        - PASS=${PASS}
+                volumes:
+                        - ${DOCK_ROOT}/transmission/config:/config
+                        - ${ROOT}/downloads:/downloads
+                        - ${DOCK_ROOT}/transmission/watch:/watch
+                restart: unless-stopped
+        # =============================
+        #  Nzbget
+        #  https://hub.docker.com/r/linuxserver/nzbget
+        #  Usenet downloader with Web UI
+        # =============================
+        nzbget:
+                image: linuxserver/nzbget:latest
+                container_name: "Nzbget"
+                #network_mode: "service:pia-openvpn"
+                ports:
+                        - "6789:6789"
+                environment:
+                        - VIRTUAL_HOST=nzbget.local
+                        - PUID=${PUID}
+                        - PGID=${PGID}
+                        - TZ=${TZ}
+                volumes:
+                        - ${DOCK_ROOT}/nzbget/config:/config
+                        - ${ROOT}/downloads:/downloads
+                restart: unless-stopped
+        # =============================
+        #  Vpn-Proxy (Nginx)
+        #  https://hub.docker.com/_/nginx
+        #  Nginx proxy for VPN-routed services
+        # =============================
+        proxy:
+                container_name: "Vpn-Proxy"
+                image: nginx:latest
+                restart: always
+                volumes:
+                        - ${DOCK_ROOT}/proxy/config/nginx.conf:/etc/nginx/nginx.conf:ro
+                ports:
+                        - "9091:9091"
+                        #- "6789:6789"
+                environment:
+                        - TZ=${TZ}
+                        - PGID=${PGID}
+                        - PUID=${PUID}
+                networks:
+                        pia_network:
+                                ipv4_address: 192.168.170.5
+        # =============================
+        #  Sonarr
+        #  https://hub.docker.com/r/linuxserver/sonarr
+        #  TV series management and automation
+        # =============================
+        sonarr:
+                container_name: Sonarr
+                #image: linuxserver/sonarr:133
+                image: linuxserver/sonarr:latest
+                restart: unless-stopped
+                volumes:
+                        - ${DOCK_ROOT}/sonarr/config:/config
+                        - ${ROOT}/tv:/complete
+                        - ${ROOT}/downloads:/downloads
+                        - /etc/localtime:/etc/localtime:ro
+                environment:
+                        - TZ=${TZ}
+                        - PGID=${PGID}
+                        - PUID=${PUID}
+                ports:
+                        - "8989:8989"
+                networks:
+                        pia_network:
+                                ipv4_address: 192.168.170.8
+        # =============================
+        #  Radarr
+        #  https://hub.docker.com/r/linuxserver/radarr
+        #  Movie management and automation
+        # =============================
+        radarr:
+                container_name: Radarr
+                #image: linuxserver/radarr:109
+                image: linuxserver/radarr:latest
+                restart: unless-stopped
+                volumes:
+                        - ${DOCK_ROOT}/radarr/config:/config
+                        - ${ROOT}/movies:/complete
+                        - ${ROOT}/downloads:/downloads
+                        - /etc/localtime:/etc/localtime:ro
+                environment:
+                        - TZ=${TZ}
+                        - PGID=${PGID}
+                        - PUID=${PUID}
+                ports:
+                        - "7878:7878"
+                networks:
+                        pia_network:
+                                ipv4_address: 192.168.170.10
+        # =============================
+        #  Ombi
+        #  https://hub.docker.com/r/linuxserver/ombi
+        #  Media request and management system
+        # =============================
+        ombi:
+                container_name: Ombi
+                image: linuxserver/ombi:latest
+                restart: always
+                volumes:
+                        - ${DOCK_ROOT}/ombi/config:/config
+                environment:
+                        - TZ=${TZ}
+                        - PUID=${PUID}
+                        - PGID=${PGID}
+                ports:
+                        - "3579:3579"
+                networks:
+                        - ssl_secure_network
+        # =============================
+        #  Code-server
+        #  https://hub.docker.com/r/linuxserver/code-server
+        #  VS Code in the browser for remote development
+        # =============================
+        code-server:
+                image: lscr.io/linuxserver/code-server:latest
+                container_name: Code-server
+                environment:
+                        - PUID=${PUID}
+                        - PGID=${PGID}
+                        - TZ=${TZ}
+                        - PASSWORD=${PASS}
+                        - SUDO_PASSWORD=${PASS}
+                        - DEFAULT_WORKSPACE=/home
+                volumes:
+                        - ${DOCK_ROOT}/code-server/config:/config
+                        - ${DOCK_ROOT}:/home
+                ports:
+                        - 8443:8443
+                restart: unless-stopped
+        # =============================
+        #  Rustdesk
+        #  https://hub.docker.com/r/linuxserver/rustdesk
+        #  Self-hosted remote desktop solution
+        # =============================
+        rustdesk:
+                image: lscr.io/linuxserver/rustdesk:latest
+                container_name: Rustdesk
+                environment:
+                        - PUID=${PUID}
+                        - PGID=${PGID}
+                        - TZ=${TZ}
+                        - CUSTOM_PORT=3002
+                        - CUSTOM_HTTPS_PORT=3003
+                        - CUSTOM_USER=${GLOBAL_USER}
+                        - PASSWORD=${PASS}
+                volumes:
+                        - ${DOCK_ROOT}/rustdesk/config:/config
+                ports:
+                        - 3002:3002
+                        - 3003:3003
+                restart: unless-stopped
+                networks:
+                        - ssl_secure_network
+        # =============================
+        #  Bazarr
+        #  https://hub.docker.com/r/linuxserver/bazarr
+        #  Subtitle management for Sonarr/Radarr
+        # =============================
+        bazarr:
+                image: lscr.io/linuxserver/bazarr:latest
+                container_name: Bazarr
+                environment:
+                        - PUID=${PUID}
+                        - PGID=${PGID}
+                        - TZ=${TZ}
+                volumes:
+                        - ${DOCK_ROOT}/bazarr/config:/config
+                        - ${ROOT}/movies:/movies #optional
+                        - ${ROOT}/tv:/tv
+                ports:
+                        - 6767:6767
+                restart: unless-stopped
+        # =============================
+        #  Obsidian
+        #  https://hub.docker.com/r/linuxserver/obsidian
+        #  Self-hosted Obsidian for note-taking
+        # =============================
+        obsidian:
+                image: lscr.io/linuxserver/obsidian:latest
+                container_name: Obsidian
+                volumes:
+                        - ${DOCK_ROOT}/obsidian/config:/config
+                environment:
+                        - PUID=${PUID}
+                        - PGID=${PGID}
+                        - TZ=${TZ}
+                        - CUSTOM_USER=${GLOBAL_USER}
+                        - PASSWORD=${PASS}
+                ports:
+                        - 3000:3000
+                        - 3001:3001
+                shm_size: "1gb"
+                restart: unless-stopped
+                networks:
+                        - ssl_secure_network
+        # =============================
+        #  Couchdb
+        #  https://hub.docker.com/_/couchdb
+        #  NoSQL database for storing documents
+        # =============================
+        couchdb:
+                image: couchdb:latest
+                container_name: Couchdb
+                restart: unless-stopped
+                volumes:
+                        - ${DOCK_ROOT}/couchdb/local.ini:/opt/couchdb/etc/local.ini
+                        - couchdb_data:/opt/couchdb/data
+                environment:
+                        - COUCHDB_USER=${GLOBAL_USER}
+                        - COUCHDB_PASSWORD=${PASS}
+                        - COUCHDB_ENABLE_CORS=true
+                        - COUCHDB_CORS_ORIGINS=app://obsidian.md
+                        - COUCHDB_CORS_METHODS=GET, POST, PUT, DELETE, OPTIONS
+                        - COUCHDB_CORS_HEADERS=accept, authorization, content-type, origin
+                        - COUCHDB_CORS_CREDENTIALS=true
+                networks:
+                        - ssl_secure_network
+        # =============================
+        #  Home Assistant
+        #  https://hub.docker.com/r/homeassistant/home-assistant
+        #  Open-source home automation platform
+        # =============================
+        homeassistant:
+                container_name: homeassistant
+                image: homeassistant/home-assistant:stable
+                volumes:
+                        - ${DOCK_ROOT}/homeassistant/config:/config # Adjust the path on your host to store Home Assistant configuration
+                environment:
+                        - TZ=America/New_York # Set your timezone (adjust as needed)
+                ports:
+                        - "8123:8123" # Home Assistant runs on port 8123
+                restart: unless-stopped
+                network_mode: host
+        # =============================
+        #  Cloudflare-DDNS
+        #  https://github.com/favonia/cloudflare-ddns
+        #  Dynamic DNS updater for Cloudflare (IPv4/IPv6)
+        #  This Setup is not supporting IPv6 at the moment
+        # =============================
+        cloudflare-ddns:
+                image: favonia/cloudflare-ddns:latest
+                container_name: Cloudflare-DDNS
+                restart: unless-stopped
+                network_mode: host
+                environment:
+                        - CF_API_TOKEN=${CF_API_TOKEN} # Cloudflare API Token
+                        - DOMAINS=${CF_DDNS_DOMAINS} # Comma-separated list of domains/hosts
+                        - IP4_PROVIDER=cloudflare.trace
+                        - PROXIED=${CF_DDNS_PROXIED} # true or false
+        # =============================
+        #  Nginx Proxy Manager
+        #  https://hub.docker.com/r/jc21/nginx-proxy-manager
+        #  Web UI for managing Nginx reverse proxy hosts, SSL, and more
+        # =============================
+        nginx-proxy-manager:
+                image: jc21/nginx-proxy-manager:latest
+                container_name: Nginx-Proxy-Manager
+                restart: unless-stopped
+                ports:
+                        - "81:81"      # Web UI
+                        - "8888:80"     # HTTP
+                        - "4444:443"   # HTTPS
+                environment:
+                        - TZ=${TZ}
+                volumes:
+                        - ${DOCK_ROOT}/nginx-proxy-manager/data:/data
+                        - ${DOCK_ROOT}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+                networks:
+                        - ssl_secure_network
+        # =============================
+        #  Cloudflare Tunnel
+        #  https://hub.docker.com/r/cloudflare/cloudflared
+        #  Secure tunnel to expose services through Cloudflare
+        # =============================
+        cloudflared:
+                image: cloudflare/cloudflared:latest
+                container_name: Cloudflare-Tunnel
+                restart: unless-stopped
+                command: tunnel --origincert /etc/cloudflared/cert.pem --config /etc/cloudflared/config.yml run
+                environment:
+                        - TZ=${TZ}
+                        - PUID=${PUID}
+                        - PGID=${PGID}
+                volumes:
+                        - ${DOCK_ROOT}/cloudflared:/etc/cloudflared
+                network_mode: host
+                depends_on:
+                        - nginx-proxy-manager
+volumes:
+        portainer_data:
+        couchdb_data:
+networks:
+        pia_network:
+                driver: bridge
+                ipam:
+                        config:
+                                - subnet: 192.168.170.0/24
+        ssl_secure_network:
+                driver: bridge
