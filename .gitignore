@@ -1,23 +1,33 @@
 # Docker volumes and data directories
 */data/
-*/config/
 */logs/
 */log/
 
-# Specific service data directories
+# Service-specific data exclusions
 radarr/config/
 sonarr/config/
 bazarr/config/
-couchdb/
-nzbget/
-obsidian/
-ombi/
-proxy/
+homeassistant/config/
+obsidian
+ombi/config/
 rustdesk/config/
+code-server/config/
+nginx-proxy-manager/data/
+couchdb/data/
+couchdb/etc/
+nzbget/config/data/
+nzbget/downloads/
+proxy/data/
 settings/
-transmission/config/
-code-server/
-nginx-proxy-manager/
+transmission/config/data/
+transmission/downloads/
+transmission/watch/
+
+# But allow specific config files
+!couchdb/local.ini
+!nzbget/config/nzbget.conf
+!proxy/config/nginx.conf
+!transmission/config/settings.json
 
 # Large files that exceed GitHub limits
 *.db
@@ -32,6 +42,7 @@ nginx-proxy-manager/
 *.json
 !package.json
 !composer.json
+!transmission/config/settings.json
 
 # Environment files with secrets
 .env
