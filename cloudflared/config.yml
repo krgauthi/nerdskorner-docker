@@ -1,0 +1,42 @@
+# Cloudflare Tunnel Configuration
+# 
+# IMPORTANT: For each hostname in the ingress rules below, you MUST also create
+# a corresponding CNAME record in the Cloudflare Dashboard:
+#
+# 1. Go to Cloudflare Dashboard → Your Domain → DNS → Records
+# 2. Add CNAME records for each subdomain:
+#    - Type: CNAME
+#    - Name: synology (for synology.nerdskorner.tech)
+#    - Name: photos (for photos.nerdskorner.tech) 
+#    - Name: homeassistant (for homeassistant.nerdskorner.tech)
+#    - Target: 0b1aa8ba-a444-4cd4-94a2-d5820fa78353.cfargotunnel.com
+#    - Proxy status: Proxied (orange cloud icon)
+#
+# Without these DNS records, you'll get 521 errors because Cloudflare
+# doesn't know which subdomains should be routed to this tunnel.
+#
+# Tunnel ID: 0b1aa8ba-a444-4cd4-94a2-d5820fa78353
+# Format: {tunnel-id}.cfargotunnel.com
+
+tunnel: synology-tunnel
+credentials-file: /etc/cloudflared/0b1aa8ba-a444-4cd4-94a2-d5820fa78353.json
+
+ingress:
+  - hostname: synology.nerdskorner.tech
+    service: http://localhost:5000
+    originRequest:
+      noTLSVerify: true
+      
+  - hostname: photos.nerdskorner.tech
+    service: http://localhost:5000
+    originRequest:
+      noTLSVerify: true
+      
+  - hostname: homeassistant.nerdskorner.tech
+    service: http://localhost:8123
+    originRequest:
+      noTLSVerify: true
+      
+
+      
+  - service: http_status:404

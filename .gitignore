@@ -1,0 +1,62 @@
+# Docker volumes and data directories
+*/data/
+*/config/
+*/logs/
+*/log/
+
+# Specific service data directories
+radarr/config/
+sonarr/config/
+bazarr/config/
+couchdb/
+nzbget/
+obsidian/
+ombi/
+proxy/
+rustdesk/config/
+settings/
+transmission/config/
+code-server/
+nginx-proxy-manager/
+
+# Large files that exceed GitHub limits
+*.db
+*.tar
+*.zip
+*.backup
+
+# Sensitive configuration files
+*.pem
+*.key
+*.crt
+*.json
+!package.json
+!composer.json
+
+# Environment files with secrets
+.env
+.env.local
+.env.production
+
+# Cloudflare tunnel credentials
+cloudflared/*.json
+
+# Home Assistant secrets
+homeassistant/secrets.yaml
+homeassistant/.storage/
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Backup files
+*.bak
+*.backup
